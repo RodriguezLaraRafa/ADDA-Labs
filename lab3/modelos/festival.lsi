@@ -15,9 +15,6 @@ constraints section
 sum(numEntradas[tipo, area], tipo in 0 .. getNumTiposEntrada()) - getAforoMaximoArea(area) <= 0, area in 0 .. getNumAreas()
 sum(numEntradas[tipo, area], area in 0 .. getNumAreas()) - getCuotaMinima(tipo) >= 0, tipo in 0 .. getNumTiposEntrada()
 
-bounds section
-numEntradas[tipo, area] >= 0, tipo in 0 .. getNumTiposEntrada(), area in 0 .. getNumAreas()
-
 
 int
 
