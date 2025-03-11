@@ -1,0 +1,23 @@
+head section
+
+Integer getNumProductos()
+Integer getNumAlmacenes()
+Integer getMetrosCubicosAlmacen(Integer a)
+Integer getMetrosCubicosProducto(Integer p)
+Boolean sonIncompatibles(Integer p1, Integer p2)
+Integer esIncompatible(Integer p1, Integer p2)
+
+goal section
+
+max sum(producto[a, p], a in 0 .. getNumAlmacenes(), p in 0 .. getNumProductos())
+
+constraints section
+
+sum(producto[a, p], a in 0 .. getNumAlmacenes()) - 1 <= 0 , p in 0 .. getNumProductos()
+sum(getMetrosCubicosProducto(p) producto[a, p], p in 0 .. getNumProductos()) - getMetrosCubicosAlmacen(a) <= 0, a in 0 .. getNumAlmacenes()
+
+//x[i,j] + x[z,j] <= 1, i in 0 .. numProducts, z in 0 .. numProducts, j in 0 .. numWarehouses | esIncompatible(i, z) = 1
+producto[a, p1] + producto[a, p2] <= 1, p1 in 0 .. getNumProductos(), p2 in 0 .. getNumProductos(), a in 0 .. getNumAlmacenes() | esIncompatible(p1,p2) = 1
+
+bin
+producto[a, p], a in 0 .. getNumAlmacenes(), p in 0 .. getNumProductos()

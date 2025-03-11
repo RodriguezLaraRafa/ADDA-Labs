@@ -1,0 +1,24 @@
+head section
+
+Integer getNumTiposEntrada()
+Integer getNumAreas()
+Integer getCosteAsignacion(Integer tipo, Integer area)
+Integer getAforoMaximoArea(Integer area)
+Integer getCuotaMinima(Integer tipo)
+
+goal section
+
+min sum(getCosteAsignacion(tipo, area) numEntradas[tipo, area], tipo in 0 .. getNumTiposEntrada(), area in 0 .. getNumAreas())
+
+constraints section
+
+sum(numEntradas[tipo, area], tipo in 0 .. getNumTiposEntrada()) - getAforoMaximoArea(area) <= 0, area in 0 .. getNumAreas()
+sum(numEntradas[tipo, area], area in 0 .. getNumAreas()) - getCuotaMinima(tipo) >= 0, tipo in 0 .. getNumTiposEntrada()
+
+bounds section
+numEntradas[tipo, area] >= 0, tipo in 0 .. getNumTiposEntrada(), area in 0 .. getNumAreas()
+
+
+int
+
+numEntradas[tipo, area], tipo in 0 .. getNumTiposEntrada(), area in 0 .. getNumAreas()

@@ -1,0 +1,21 @@
+head section
+Integer getNumCursos()
+Integer getNumAreas()
+Integer getCoste(Integer i)
+Integer getArea(Integer i)
+Integer getRelevancia(Integer i)
+Integer getDuracion(Integer i)
+Integer getPresupuestoTotal()
+
+goal section
+max sum(getRelevancia(curso) seleccion[curso], curso in 0 .. getNumCursos())
+
+constraints section
+
+sum(seleccion[curso] | getArea(curso) = area) >=1, area in 0 .. getNumAreas()
+sum(seleccion[curso] | getArea(curso) = 0) - sum(seleccion[curso] | getArea(curso) != 0) > 0
+sum(getDuracion(curso) seleccion[curso], curso in 0 .. getNumCursos()) - sum(seleccion[curso], curso in 0 .. getNumCursos()) >= 0  //Restriccion duracion media
+sum(getCoste(curso) seleccion[curso], curso in 0 .. getNumCursos()) - getPresupuestoTotal() <= 0
+
+bin
+seleccion[curso], curso in 0 .. getNumCursos()
