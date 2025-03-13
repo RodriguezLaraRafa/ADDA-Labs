@@ -12,9 +12,8 @@ min sum(getCosteAsignacion(tipo, area) numEntradas[tipo, area], tipo in 0 .. get
 
 constraints section
 
-sum(numEntradas[tipo, area], tipo in 0 .. getNumTiposEntrada()) - getAforoMaximoArea(area) <= 0, area in 0 .. getNumAreas()
-sum(numEntradas[tipo, area], area in 0 .. getNumAreas()) - getCuotaMinima(tipo) >= 0, tipo in 0 .. getNumTiposEntrada()
-
+sum(numEntradas[tipo, area], tipo in 0 .. getNumTiposEntrada())  <= getAforoMaximoArea(area), area in 0 .. getNumAreas()
+sum(numEntradas[tipo, area], area in 0 .. getNumAreas()) >= getCuotaMinima(tipo), tipo in 0 .. getNumTiposEntrada()
 
 int
 
