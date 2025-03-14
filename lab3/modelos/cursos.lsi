@@ -13,9 +13,9 @@ max sum(getRelevancia(curso) seleccion[curso], curso in 0 .. getNumCursos())
 constraints section
 
 sum(seleccion[curso] | getArea(curso) = area) >=1, area in 0 .. getNumAreas()
-sum(seleccion[curso] | getArea(curso) = 0) - sum(seleccion[curso] | getArea(curso) != 0) > 0
-sum(getDuracion(curso) seleccion[curso], curso in 0 .. getNumCursos()) - sum(seleccion[curso], curso in 0 .. getNumCursos()) >= 0  //Restriccion duracion media
-sum(getCoste(curso) seleccion[curso], curso in 0 .. getNumCursos()) - getPresupuestoTotal() <= 0
+sum(seleccion[curso], curso in 0 .. getNumCursos() | getArea(curso) = 0) - sum(seleccion[curso],  curso in 0 .. getNumCursos() | getArea(curso) != 0) >=0
+sum(getDuracion(curso) seleccion[curso], curso in 0 .. getNumCursos()) - sum(20 seleccion[curso], curso in 0 .. getNumCursos()) >= 0  //Restriccion duracion media
+sum(getCoste(curso) seleccion[curso], curso in 0 .. getNumCursos())  <= getPresupuestoTotal()
 
 bin
 seleccion[curso], curso in 0 .. getNumCursos()
