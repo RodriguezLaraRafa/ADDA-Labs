@@ -48,7 +48,7 @@ public class SolucionEstaciones {
     	GraphColors.toDot(DatosTren.getGraph(),"ficheros/grafoCuatro.gv",
 				x->x.nombre() + " - " + camino.indexOf(x),
 				x->x.toString(),
-				v->GraphColors.color(Color.black),
+				v->GraphColors.colorIf(Color.red, Color.green, v.satisfaccionClientes()>=7),
 				e->GraphColors.style(Style.bold));
     	
     }
