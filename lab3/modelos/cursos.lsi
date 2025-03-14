@@ -1,21 +1,28 @@
 head section
+
 Integer getNumCursos()
 Integer getNumAreas()
-Integer getCoste(Integer i)
-Integer getArea(Integer i)
-Integer getRelevancia(Integer i)
-Integer getDuracion(Integer i)
+Integer getCoste(Integer c)
+Integer getArea(Integer c)
+Integer getRelevancia(Integer c)
+Integer getDuracion(Integer c)
 Integer getPresupuestoTotal()
 
+Integer NC = getNumCursos()
+Integer NA = getNumAreas()
+
 goal section
-max sum(getRelevancia(curso) seleccion[curso], curso in 0 .. getNumCursos())
+
+max sum(getRelevancia(c) sel[c], c in 0 .. NC)
 
 constraints section
 
-sum(seleccion[curso] | getArea(curso) = area) >=1, area in 0 .. getNumAreas()
-sum(seleccion[curso] | getArea(curso) = 0) - sum(seleccion[curso] | getArea(curso) != 0) > 0
-sum(getDuracion(curso) seleccion[curso], curso in 0 .. getNumCursos()) - sum(seleccion[curso], curso in 0 .. getNumCursos()) >= 0  //Restriccion duracion media
-sum(getCoste(curso) seleccion[curso], curso in 0 .. getNumCursos()) - getPresupuestoTotal() <= 0
+sum(sel[c], c in 0 .. NC | getArea(c) = area) >= 1, area in 0 .. NA
+sum(sel[c], c in 0 .. NC | getArea(c) = 0) - sum(sel[c], c in 0 .. NC | getArea(c) != 0) > 0
+sum(getDuracion(c) sel[c], c in 0 .. NC) - sum(20 sel[c], c in 0 .. NC) > 0
+sum(getCoste(c) sel[c], c in 0 .. NC) - getPresupuestoTotal() <= 0
+
 
 bin
-seleccion[curso], curso in 0 .. getNumCursos()
+
+sel[c], c in 0 .. NC
