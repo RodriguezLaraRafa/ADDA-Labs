@@ -4,7 +4,7 @@ My proposed solutions for the lab exercises of my Data Structures and Algorithms
 
 All exercises uploaded here have been tested and work correctly, giving a solution, not necessarily the optimal one.
 
-Warning: In this repository I provide only the core files, omitting some other folders and files available in the template project.
+Warning: In this repository I provide only the core files, omitting some other folders and files available in the template project. Hence, you cannot run it just by downloading it.
 In order to run it in your computer, I suggest starting with the template and then changing all necessary files. Make sure to import correctly the dependencies
 
 To work with recursive data types, graphs, linear programming, and genetic algorithms, I make use of the repository adda_v4, written by Miguel Toro Bonilla.
