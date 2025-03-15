@@ -10,3 +10,5 @@ In order to run it in your computer, I suggest starting with the template and th
 To work with recursive data types, graphs, linear programming, and genetic algorithms, I make use of the repository adda_v4, written by Miguel Toro Bonilla.
 
 https://github.com/migueltoro/adda_v4
+
+Thanks to [amoraschi](https://github.com/amoraschi) and [AlexMG-05](https://github.com/AlexMG-05) for their help in optimisation exercises, you can find their proposed solutions in their profiles
