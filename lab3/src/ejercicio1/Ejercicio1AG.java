@@ -1,8 +1,10 @@
 package ejercicio1;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -34,8 +36,8 @@ public class Ejercicio1AG implements ValuesInRangeData<Integer, SolucionAlmacen>
     @Override
     public Double fitnessFunction(List<Integer> ls) {
         double goal = 0, error = 0;
-        LinkedList<Integer> constraintOne = new LinkedList<>(); //One product cannot be in 2 warehouses
-        LinkedList<Integer> constraintTwo = new LinkedList<>(); //Products' sum of sizes cannot exceed maximum capability of warehouse
+        Map<Integer, Integer> constraintOne = new HashMap<>(); //One product cannot be in 2 warehouses
+        Map<Integer, Integer> constraintTwo = new HashMap<>(); //Products' sum of sizes cannot exceed maximum capability of warehouse
         int incompatibilitiesCounter = 0;
 
         Integer nProductos = DatosAlmacenes.getNumProductos();
@@ -45,19 +47,19 @@ public class Ejercicio1AG implements ValuesInRangeData<Integer, SolucionAlmacen>
             Integer currentWarehouse = i / nProductos;
             Integer currentProduct = i % nProductos;
             if (ls.get(i) > 0) {
-                goal += ls.get(i);
+                goal += 1;
                 //first constraint
-                if (constraintOne.size() <= currentProduct) {
-                    constraintOne.add(ls.get(i));
+                if (constraintOne.containsKey(currentProduct)) {
+                    constraintOne.put(constraintOne.get(currentProduct), constraintOne.get(currentProduct)+1);
                 } else {
-                    constraintOne.set(currentProduct, constraintOne.get(currentProduct) + ls.get(i));
+                	constraintOne.put(constraintOne.get(currentProduct), 1);
                 }
                 //second constraint
                 Integer currentWeight = DatosAlmacenes.getMetrosCubicosProducto(currentProduct);
-                if (constraintTwo.size() <= currentWarehouse) {
-                    constraintTwo.add(currentWeight);
+                if (constraintTwo.containsKey(currentWarehouse)) {
+                    constraintTwo.put(constraintTwo.get(currentWarehouse), constraintTwo.get(currentWarehouse)+currentWeight);
                 } else {
-                    constraintTwo.set(currentWarehouse, currentWeight + constraintTwo.get(currentWarehouse));
+                    constraintTwo.put(constraintTwo.get(currentWarehouse), currentWeight);
                 }
                 //Third constraint
                 for (int j = 0; j < nProductos; j++) {
@@ -70,15 +72,14 @@ public class Ejercicio1AG implements ValuesInRangeData<Integer, SolucionAlmacen>
             }
             
         }
-        error += constraintOne.stream().filter(x -> x > 1).mapToInt(y -> y).sum() * 20;
-        error += IntStream.range(0, constraintTwo.size())
-                .filter(index -> constraintTwo.get(index) > DatosAlmacenes.getMetrosCubicosAlmacen(index))
-                .map(index -> constraintTwo.get(index) * 20)
-                .sum();     
-        
+        error += constraintOne.keySet().stream().filter(x -> constraintOne.get(x) > 1).mapToInt(y -> constraintOne.get(y)).sum() * 20;
+        error += IntStream.range(0, nAlmacenes)
+                .filter(index -> constraintTwo.getOrDefault(index, 0) > DatosAlmacenes.getMetrosCubicosAlmacen(index))
+                .map(index -> constraintTwo.getOrDefault(index, 0) - DatosAlmacenes.getMetrosCubicosAlmacen(index))
+                .sum();
         error += incompatibilitiesCounter*20;
 
-        return goal - 10000 * error;
+        return goal - 10000 * Math.pow(error, 2);
     }
 
     @Override
