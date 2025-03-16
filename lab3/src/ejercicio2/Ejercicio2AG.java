@@ -72,7 +72,7 @@ public class Ejercicio2AG implements ValuesInRangeData<Integer, SolucionCursos> 
 	    }
 
 	    // Fitness value
-	    return goal - 1000 * Math.pow(error, 2);
+	    return goal - 1000 *error;
 	}
 
 
