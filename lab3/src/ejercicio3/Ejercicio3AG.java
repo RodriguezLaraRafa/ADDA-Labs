@@ -40,8 +40,8 @@ public class Ejercicio3AG implements ValuesInRangeData<Integer, SolucionFestival
 		
 		for(int i=0; i<ls.size();i++) {
 			Integer aforoAreaTipo = ls.get(i);
-			Integer currentType = i % DatosFestival.getNumTiposEntrada();
-			Integer currentArea = i / DatosFestival.getNumTiposEntrada();
+			Integer currentType = i / DatosFestival.getNumAreas();
+			Integer currentArea = i % DatosFestival.getNumAreas();
 			goal+= aforoAreaTipo * DatosFestival.getCosteAsignacion(currentType, currentArea);
 			
 			if(aforoPorArea.containsKey(currentArea)) {
@@ -66,12 +66,12 @@ public class Ejercicio3AG implements ValuesInRangeData<Integer, SolucionFestival
 		
 		for(Integer key: aforoPorTipo.keySet()) {
 			if(DatosFestival.getCuotaMinima(key) > aforoPorTipo.get(key)) {
-				penalties += (DatosFestival.getCuotaMinima(key) - aforoPorTipo.get(key)); //Cambiad el valor de la constante
+				penalties += ((DatosFestival.getCuotaMinima(key) - aforoPorTipo.get(key))*200)	; //Cambiad el valor de la constante
 			}
 		}
 		
 		
-		return -goal- 1000* Math.pow(penalties, 2);  //Cambiad el valor de la constante
+		return -goal- 2000*penalties;  //Cambiad el valor de la constante
 	}
 
 	@Override
