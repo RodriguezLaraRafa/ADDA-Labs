@@ -16,7 +16,5 @@ public class CursosHeuristic {
         return (double) v1.remainingBudget();
     }
 	
-	private static Double mejorOpcion(Integer i, List<Integer> options) { //Las opciones son 0 y 1 por cada curso
-		return 1.0; //Hay que cambiarlo si o si
-	}
+
 }
