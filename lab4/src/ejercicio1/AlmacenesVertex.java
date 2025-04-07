@@ -94,6 +94,23 @@ public record AlmacenesVertex(Integer index, List<Set<Integer>> storedProducts, 
 
 	    return of(index + 1, sProducts, rSpace);
 	}
+	
+	@Override
+	public Integer greedyAction() {
+	    // Comparator to prioritize warehouses with the most remaining space
+	    Comparator<Integer> cmp = Comparator.comparing(j -> remainingSpace.get(j), Comparator.reverseOrder());
+
+	    // Find the best warehouse for the current product
+	    Integer action = IntStream.range(0, DatosAlmacenes.getNumAlmacenes())
+	            .filter(j -> noTieneIncompatibilidades(index, j)) // Check compatibility
+	            .filter(j -> remainingSpace.get(j) >= DatosAlmacenes.getMetrosCubicosProducto(index)) // Check capacity
+	            .boxed()
+	            .max(cmp) // Choose the warehouse with the most remaining space
+	            .orElse(-1); // If no valid warehouse, return -1 (do not assign)
+
+	    return action;
+	}
+	
 
 	@Override
 	public AlmacenesEdge edge(Integer a) {
