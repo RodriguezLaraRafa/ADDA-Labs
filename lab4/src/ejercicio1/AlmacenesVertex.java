@@ -7,7 +7,8 @@ import us.lsi.common.List2;
 import us.lsi.graphs.virtual.VirtualVertex;
 
 
-public record AlmacenesVertex(Integer index, List<Set<Integer>> storedProducts, List<Integer> remainingSpace) implements VirtualVertex<AlmacenesVertex, AlmacenesEdge, Integer>{
+public record AlmacenesVertex(Integer index, List<Set<Integer>> storedProducts, List<Integer> remainingSpace) implements VirtualVertex<AlmacenesVertex, AlmacenesEdge, Integer>{																// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
+
 	
 	public static AlmacenesVertex initial() {
 		List<Integer> sSpace = new LinkedList<Integer>();
@@ -61,7 +62,8 @@ public record AlmacenesVertex(Integer index, List<Set<Integer>> storedProducts, 
 	
 			alternativas = IntStream.range(0, DatosAlmacenes.getNumAlmacenes())
 				.filter(j -> noTieneIncompatibilidades(index, j)) 
-				.filter(j -> remainingSpace.get(j) > productVolume) //Debería ser un mayor o igual pero así da igual que en los resultados esperados
+				.filter(j -> remainingSpace.get(j) > productVolume) //Debería ser un mayor o igual pero así da igual que en los resultados esperados																										// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
+
 				.boxed()
 				.toList();
 	
@@ -103,7 +105,8 @@ public record AlmacenesVertex(Integer index, List<Set<Integer>> storedProducts, 
 	    // Find the best warehouse for the current product
 	    Integer action = IntStream.range(0, DatosAlmacenes.getNumAlmacenes())
 	            .filter(j -> noTieneIncompatibilidades(index, j)) // Check compatibility
-	            .filter(j -> remainingSpace.get(j) >= DatosAlmacenes.getMetrosCubicosProducto(index)) // Check capacity
+	            .filter(j -> remainingSpace.get(j) >= DatosAlmacenes.getMetrosCubicosProducto(index)) // Check capacity																																// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
+
 	            .boxed()
 	            .max(cmp) // Choose the warehouse with the most remaining space
 	            .orElse(-1); // If no valid warehouse, return -1 (do not assign)

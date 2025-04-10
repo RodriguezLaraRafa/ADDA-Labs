@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 import us.lsi.common.List2;
 import us.lsi.graphs.virtual.VirtualVertex;
 
-public record CursosVertex(Integer index, List<Integer> selectedCourses, Integer remainingBudget, Set<Integer> coveredAreas)
+public record CursosVertex(Integer index, List<Integer> selectedCourses, Integer remainingBudget, Set<Integer> coveredAreas)																																									// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
+
 implements VirtualVertex<CursosVertex, CursosEdge, Integer>{
 	
 	
@@ -40,7 +41,8 @@ implements VirtualVertex<CursosVertex, CursosEdge, Integer>{
 			
 		
 		
-			averageGreaterTwenty = selectedCourses.stream().collect(Collectors.summingInt(x->DatosCursos.getDuracion(x))) / selectedCourses.size() >= 20;
+			averageGreaterTwenty = selectedCourses.stream().collect(Collectors.summingInt(x->DatosCursos.getDuracion(x))) / selectedCourses.size() >= 20;																																									// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
+
 		} catch (ArithmeticException e){
 			averageGreaterTwenty = false;
 		}
