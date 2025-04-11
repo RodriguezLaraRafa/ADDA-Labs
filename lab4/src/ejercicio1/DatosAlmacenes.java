@@ -90,7 +90,8 @@ public class DatosAlmacenes {
 			return false;
 		}
 		String s2 = productos.get(j).producto();
-		return productos.get(i).incompatibilidades.contains(s2);
+		String s3 = productos.get(i).producto();
+		return productos.get(i).incompatibilidades.contains(s2) || productos.get(j).incompatibilidades.contains(s3);
 	}
 	public static Integer esIncompatible(Integer i, Integer j) {
 		String s2 = productos.get(j).producto();
