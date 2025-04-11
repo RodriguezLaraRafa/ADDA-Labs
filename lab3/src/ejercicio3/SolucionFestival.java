@@ -30,9 +30,9 @@ public class SolucionFestival {
     	
     	for(int i =0;i<ls.size();i++) {
 			Integer aforoAreaTipo = ls.get(i);
-			Integer currentType = i / DatosFestival.getNumTiposEntrada();
+			Integer currentType = i / DatosFestival.getNumAreas();
 			Integer currentArea = i % DatosFestival.getNumAreas();
-    		costeTotal += DatosFestival.getCosteAsignacion(currentType, currentArea);
+    		costeTotal += DatosFestival.getCosteAsignacion(currentType, currentArea) * ls.get(i);
     		unidadesTotales += aforoAreaTipo;
     		solucion.put(i, aforoAreaTipo);
     	}

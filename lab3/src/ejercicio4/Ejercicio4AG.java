@@ -48,7 +48,7 @@ public class Ejercicio4AG implements SeqNormalData<SolucionEstaciones>{
 
 	 
 	        if (DatosTren.areConnected(previousStation, currentStation)==false) {
-	            penalties += 50;
+	            penalties += 200;
 	            //return -2000000.0;
 	            //System.out.println("No están conectadas " + DatosTren.getStation(currentStation).nombre() + " y " + DatosTren.getStation(previousStation).nombre());
 	        }
@@ -69,20 +69,20 @@ public class Ejercicio4AG implements SeqNormalData<SolucionEstaciones>{
 	    }
 	    
 	    if (DatosTren.areConnected(ls.get(0), ls.get(ls.size()-1))==false) {
-            penalties += 50;
+            penalties += 200;
         }
 
 	   
 	    if (totalCostJourney > DatosTren.costAllSections() * 3 / 4) {
-	        penalties += 1;
+	        penalties += 50;
 	    }
 
 	   
 	    if (!consecutiveStationsWithGreatSatisfaction) {
-	        penalties += 1;
+	        penalties += 100;
 	    }
 
-	    return goal/DatosTren.getNumStations() - 10000 * penalties;
+	    return goal/DatosTren.getNumStations() - 1000 * penalties;
 	}
 
 	@Override

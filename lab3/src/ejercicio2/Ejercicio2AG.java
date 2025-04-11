@@ -28,59 +28,54 @@ public class Ejercicio2AG implements ValuesInRangeData<Integer, SolucionCursos> 
 
 	@Override
 	public Double fitnessFunction(List<Integer> value) {
-		// TODO Auto-generated method stub
-		Double goal = 0.0;
-		Double error = 0.0;
-		int nSelected = 0;
-		int totalDuration = 0;
-		int totalCost = 0;
-		Map<Integer, Integer> coursesPerArea = new HashMap<Integer, Integer>();
-		for(int i=0; i<size();i++) {
-			if(value.get(i)==1) {
-				goal+=DatosCursos.getRelevancia(i);
-				
-				//At least one course per area
-				Integer currentArea = DatosCursos.getArea(i);
-				
-				if(coursesPerArea.containsKey(currentArea)) {
-					coursesPerArea.put(currentArea, coursesPerArea.get(currentArea)+1);
-				} else {
-					coursesPerArea.put(currentArea, 1);
-				}
-				
-				//Third constraint
-				nSelected+=1;
-				totalDuration+=DatosCursos.getDuracion(i);
-				totalCost+= DatosCursos.getCoste(i);
-				
-				
-				
-			
-				
-			}
-			
-			
-		}
-		error+= (DatosCursos.getNumAreas() - coursesPerArea.entrySet().stream().count())*20;
-		if(coursesPerArea.containsKey(0) && coursesPerArea.get(0)< coursesPerArea.entrySet().stream().filter(x->x.getKey()!=0).count()) {  //El índice 0 supuestamente es tecnología, pero no lo dejan muy claro
-		error+=  coursesPerArea.entrySet().stream().filter(x->x.getKey()!=0).count() - coursesPerArea.get(0);
-		}
-		if(nSelected>0 && totalDuration/nSelected >20) {
-			error+= 20 - totalDuration/nSelected;
-		}
-		if(totalCost > DatosCursos.getPresupuestoTotal()) {
-			error += totalCost - DatosCursos.getPresupuestoTotal();
-		}
-		
-		
-		
-		
-		
-        return goal - 10000 * error;
+	    Double goal = 0.0;
+	    Double error = 0.0;
+	    int totalSelected = 0;
+	    int totalDuration = 0;
+	    int totalCost = 0;
+	    Map<Integer, Integer> coursesPerArea = new HashMap<>();
 
+	    for (int i = 0; i < size(); i++) {
+	        if (value.get(i) == 1) {
+	            goal += DatosCursos.getRelevancia(i);
+	            totalSelected++;
+	            totalDuration += DatosCursos.getDuracion(i);
+	            totalCost += DatosCursos.getCoste(i);
+
+	            int area = DatosCursos.getArea(i);
+	            coursesPerArea.put(area, coursesPerArea.getOrDefault(area, 0) + 1);
+	        }
+	    }
+
+	    // Constraint 1: At least one course per area
+	    error += (DatosCursos.getNumAreas() - coursesPerArea.size()) * 20;
+
+	    // Constraint 2: Technology courses >= courses from any other area
+	    int techCourses = coursesPerArea.getOrDefault(0, 0);
+	    int maxNonTechCourses = coursesPerArea.entrySet().stream()
+	        .filter(entry -> entry.getKey() != 0)
+	        .mapToInt(Map.Entry::getValue)
+	        .max()
+	        .orElse(0);
+	    if (techCourses < maxNonTechCourses) {
+	        error += (maxNonTechCourses - techCourses) * 10;
+	    }
+
+	    // Constraint 3: Average duration >= 20 hours
+	    if (totalSelected > 0 && (totalDuration / totalSelected) < 20) {
+	        error += (20 - (totalDuration / totalSelected)) * 10;
+	    }
+
+	    // Constraint 4: Total cost <= budget
+	    if (totalCost > DatosCursos.getPresupuestoTotal()) {
+	        error += (totalCost - DatosCursos.getPresupuestoTotal()) * 10;
+	    }
+
+	    // Fitness value
+	    return goal - 1000 *error;
 	}
 
-	@Override
+
 	public SolucionCursos solucion(List<Integer> value) {
 		// TODO Auto-generated method stub
 		return SolucionCursos.create(value);
