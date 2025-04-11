@@ -44,7 +44,7 @@ public record AlmacenesVertex(Integer index, List<Set<Integer>> storedProducts, 
 
 
 	    for (Integer storedProduct : productosEnAlmacen) {
-	        if (DatosAlmacenes.sonIncompatibles(producto, storedProduct)) {
+	        if (DatosAlmacenes.sonIncompatibles(producto, storedProduct) || DatosAlmacenes.sonIncompatibles(storedProducto, producto)) {
 	            return false; 
 	        }
 	    }
