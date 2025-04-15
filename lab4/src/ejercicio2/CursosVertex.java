@@ -65,6 +65,45 @@ implements VirtualVertex<CursosVertex, CursosEdge, Integer>{
 		
 	}
 	
+	public Integer greedyAction() {
+
+	    if (index >= DatosCursos.getNumCursos()) {
+	        return 0;
+	    }
+
+
+	    int courseIndex = this.index();
+	    int courseCost = DatosCursos.getCoste(courseIndex);
+	    int courseDuration = DatosCursos.getDuracion(courseIndex);
+	    int courseArea = DatosCursos.getArea(courseIndex);
+
+
+	    boolean exceedsBudget = this.remainingBudget() - courseCost < 0;
+	    boolean invalidDuration = (this.selectedCourses().size() + 1) > 0 &&
+	        (this.selectedCourses().stream()
+	            .mapToInt(DatosCursos::getDuracion)
+	            .sum() + courseDuration) / (this.selectedCourses().size() + 1) < 20;
+	    boolean areaAlreadyCovered = this.coveredAreas().contains(courseArea);
+	    boolean maintainsTechnologyDominance = this.selectedCourses().stream()
+	        .filter(x -> DatosCursos.getArea(x) == 0).count() + (courseArea == 0 ? 1 : 0) >=
+	        this.selectedCourses().stream()
+	            .filter(x -> DatosCursos.getArea(x) != 0)
+	            .collect(Collectors.groupingBy(DatosCursos::getArea, Collectors.counting()))
+	            .values()
+	            .stream()
+	            .max(Long::compare)
+	            .orElse(0L);
+
+
+	    if (!exceedsBudget && !invalidDuration && !areaAlreadyCovered && maintainsTechnologyDominance) {
+	        return 1;
+	    }
+
+
+	    return 0;
+	}
+	
+	
 	public CursosVertex neighbor(Integer a) {
 		Integer indice = index+1;
 		List<Integer> sCourses= new LinkedList<Integer>(selectedCourses);
