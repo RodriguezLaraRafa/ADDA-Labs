@@ -88,7 +88,7 @@ implements VirtualVertex<CursosVertex, CursosEdge, Integer>{
 	        .filter(x -> DatosCursos.getArea(x) == 0).count() + (courseArea == 0 ? 1 : 0) >=
 	        this.selectedCourses().stream()
 	            .filter(x -> DatosCursos.getArea(x) != 0)
-	            .collect(Collectors.groupingBy(DatosCursos::getArea, Collectors.counting()))
+	            .collect(Collectors.groupingBy(DatosCursos::getArea, Collectors.counting()))																																																		// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
 	            .values()
 	            .stream()
 	            .max(Long::compare)
