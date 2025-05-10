@@ -53,7 +53,7 @@ implements VirtualVertex<FestivalVertex, FestivalEdge, Integer>{
 	public List<Integer> actions() {
 		
 		Integer currentType = this.z() / DatosFestival.getNumAreas();
-		Integer currentArea = DatosFestival.areasOfTypeSorted(currentType).get(this.z() % DatosFestival.getNumAreas());
+		Integer currentArea = DatosFestival.areasOfTypeSorted(currentType).get(this.z() % DatosFestival.getNumAreas());																																				// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
 		
 		List<Integer> opciones = new LinkedList<Integer>();
 		

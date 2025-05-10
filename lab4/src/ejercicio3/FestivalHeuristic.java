@@ -15,7 +15,7 @@ public class FestivalHeuristic {
 	    for (int i = 0; i < DatosFestival.getNumTiposEntrada(); i++) {
 	        int remainingTicketsToCoverOfType = v1.ticketsTypes().get(i);
 
-	        for (int j = 0; j < DatosFestival.getNumAreas() && remainingTicketsToCoverOfType > 0; j++) {
+	        for (int j = 0; j < DatosFestival.getNumAreas() && remainingTicketsToCoverOfType > 0; j++) {																																												// Κὠδιϰοϲ ἐγράϕη ὑπὸ Ραφαὴλ Ροδρίγϲ Λάρα, 2025
 	            Integer currentArea = DatosFestival.areasOfTypeSorted(i).get(j);
 	            int availableCapacity = DatosFestival.getAforoMaximoArea(currentArea) - v1.areasTypes().get(currentArea);
 
