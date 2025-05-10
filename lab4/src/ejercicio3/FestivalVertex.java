@@ -85,7 +85,7 @@ implements VirtualVertex<FestivalVertex, FestivalEdge, Integer>{
 	
 	
 	public Integer greedyAction() {
-		List<Integer> actions = new LinkedList<>();
+	
 		
 		Integer currentType = this.z() / DatosFestival.getNumAreas();
 		Integer currentArea = DatosFestival.areasOfTypeSorted(currentType).get(this.z() % DatosFestival.getNumAreas());
